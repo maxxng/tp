@@ -7,9 +7,14 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is always valid
  */
 public class Remark {
-    public final String value;
     public static final String MESSAGE_CONSTRAINTS = "Remark should be of the format remark ";
 
+    public final String value;
+
+    /**
+     * Constructor for remark.
+     * @param remark the string input for the remark.
+     */
     public Remark(String remark) {
         requireNonNull(remark);
         value = remark;
