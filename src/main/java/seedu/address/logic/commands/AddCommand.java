@@ -69,14 +69,18 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        handleDuplicateTask(model);
-        ConstraintManager.enforceAttributeConstraints(toAdd);
-        DateVerifier.checkInvalidDateRange(toAdd);
-        DateVerifier.checkForExpiredDate(toAdd);
+        validateTask(model);
         updateTags(model);
         updateModel(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    private void validateTask(Model model) throws CommandException {
+        handleDuplicateTask(model);
+        ConstraintManager.enforceAttributeConstraints(toAdd);
+        DateVerifier.checkInvalidDateRange(toAdd);
+        DateVerifier.checkForExpiredDate(toAdd);
     }
 
     private void handleDuplicateTask(Model model) throws CommandException {
