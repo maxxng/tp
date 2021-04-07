@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.task.AttributeManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.attributes.Attribute;
 
@@ -21,6 +22,8 @@ public class ConstraintManager {
     public static final String MESSAGE_DATE_RECURRING_SCHEDULE_CONFLICT = "Task cannot have (Date) as well as "
             + "(RecurringSchedule) at the same time!\nPlease choose either when adding a task.";
     public static final String MESSAGE_EMPTY_TITLE = "Title is compulsory for all tasks and cannot be empty.";
+    public static final String MESSAGE_TITLE_EXCEEDS_MAX_LENGTH = "Title can have at most 40 characters. If you "
+            + "would like to add more text, you can consider adding it to the description instead.";
 
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -55,6 +58,14 @@ public class ConstraintManager {
         if (hasNoTitle) {
             logger.log(Level.INFO, MESSAGE_EMPTY_TITLE);
             throw new CommandException(MESSAGE_EMPTY_TITLE);
+        }
+    }
+
+    public static void enforceMaxTitleCharacterLength(Task task) throws CommandException {
+        AttributeManager attributeManager = new AttributeManager(task);
+        String title = attributeManager.titleString();
+        if (title.length() > 40) {
+            throw new CommandException(MESSAGE_TITLE_EXCEEDS_MAX_LENGTH);
         }
     }
 

@@ -90,4 +90,8 @@ public class AttributeManager {
     public boolean isWithinSevenDays(LocalDate currentDate) {
         return date.isWithinSevenDays(currentDate);
     }
+
+    public String titleString() {
+        return title.fullTitle;
+    }
 }

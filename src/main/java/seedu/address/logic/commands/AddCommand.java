@@ -79,6 +79,7 @@ public class AddCommand extends Command {
     private void validateTask(Model model) throws CommandException {
         handleDuplicateTask(model);
         ConstraintManager.enforceAttributeConstraints(toAdd);
+        ConstraintManager.enforceMaxTitleCharacterLength(toAdd);
         DateVerifier.checkInvalidDateRange(toAdd);
         DateVerifier.checkForExpiredDate(toAdd);
     }
