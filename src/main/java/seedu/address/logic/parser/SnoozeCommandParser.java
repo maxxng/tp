@@ -26,9 +26,9 @@ public class SnoozeCommandParser implements Parser<SnoozeCommand> {
      */
     public SnoozeCommand parse(String args) throws ParseException {
         validateParameter(args);
+
         Index index = getIndex(args);
         int days = getDays(args);
-
         return new SnoozeCommand(index, days);
     }
 
